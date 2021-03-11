@@ -1,0 +1,24 @@
+[Sat Apr 13 11:17:07 2019] Failed to listen on localhost:8080 (reason: Address already in use)
+[Sat Apr 13 11:20:26 2019] Failed to listen on localhost:8080 (reason: Address already in use)
+[Sat Apr 13 11:26:09 2019] Failed to listen on localhost:8080 (reason: Address already in use)
+[Sat Apr 13 11:33:51 2019] Failed to listen on localhost:8080 (reason: Address already in use)
+[Sat Apr 13 11:42:24 2019] ::1:59564 [200]: /favicon.ico
+[Sat Apr 13 14:43:12 2019] ::1:59962 [200]: /favicon.ico
+[Sat Apr 13 14:50:10 2019] ::1:60010 [200]: /favicon.ico
+[Sat Apr 13 15:08:49 2019] ::1:60038 [200]: /static/index/css/base.css
+[Sat Apr 13 15:08:49 2019] ::1:60040 [200]: /static/index/css/common.css
+[Sat Apr 13 15:08:49 2019] ::1:60042 [200]: /static/index/css/index.css
+[Sat Apr 13 15:08:49 2019] ::1:60046 [200]: /static/index/js/respond.min.js
+[Sat Apr 13 15:08:49 2019] ::1:60048 [200]: /static/index/js/jquery-1.11.3.min.js
+[Sat Apr 13 15:08:49 2019] ::1:60050 [200]: /static/index/image/logo.png
+[Sat Apr 13 15:08:49 2019] ::1:60060 [200]: /static/index/image/arrow-down_3d94809.png
+[Sat Apr 13 15:08:49 2019] ::1:60062 [200]: /static/index/image/all-arrow_9cc750f.png
+[Sat Apr 13 15:08:49 2019] ::1:60064 [200]: /static/index/image/free-appointment_d550c8b.png
+[Sat Apr 13 15:08:49 2019] ::1:60066 [200]: /static/index/image/white-locate_b59a216.png
+[Sat Apr 13 15:08:54 2019] ::1:60068 [200]: /static/index/image/slide-arrow-right.png
+[Sat Apr 13 15:08:54 2019] ::1:60070 [200]: /static/index/image/slide-arrow-left.png
+[Sat Apr 13 15:09:02 2019] ::1:60074 Invalid request (Unexpected EOF)
+[Sat Apr 13 15:09:09 2019] ::1:60078 Invalid request (Unexpected EOF)
+[Sat Apr 13 15:09:14 2019] ::1:60080 Invalid request (Unexpected EOF)
+[Sat Apr 13 15:09:19 2019] ::1:60082 Invalid request (Unexpected EOF)
+[Sat Apr 13 15:09:32 2019] ::1:60090 Invalid request (Unexpected EOF)
