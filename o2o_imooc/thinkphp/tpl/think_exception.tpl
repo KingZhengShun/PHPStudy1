@@ -286,13 +286,13 @@
     <div class="echo">
         <?php echo $echo;?>
     </div>
-    <?php if(\think\App::$debug) { ?>
+    <?php if(\think\facade\App::isDebug()) { ?>
     <div class="exception">
     <div class="message">
         
             <div class="info">
                 <div>
-                    <h2>[<?php echo $code; ?>] <?php echo sprintf('%s in %s', parse_class($name), parse_file($file, $line)); ?></h2>
+                    <h2>[<?php echo $code; ?>]&nbsp;<?php echo sprintf('%s in %s', parse_class($name), parse_file($file, $line)); ?></h2>
                 </div>
                 <div><h1><?php echo nl2br(htmlentities($message)); ?></h1></div>
             </div>
@@ -411,10 +411,10 @@
 
     <div class="copyright">
         <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a> 
-        <span>V<?php echo THINK_VERSION; ?></span> 
+        <span>V<?php echo \think\facade\App::version(); ?></span> 
         <span>{ 十年磨一剑-为API开发设计的高性能框架 }</span>
     </div>
-    <?php if(\think\App::$debug) { ?>
+    <?php if(\think\facade\App::isDebug()) { ?>
     <script>
         var LINE = <?php echo $line; ?>;
 

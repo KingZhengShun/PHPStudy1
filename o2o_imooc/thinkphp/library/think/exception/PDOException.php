@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2016 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -10,8 +10,6 @@
 // +----------------------------------------------------------------------
 
 namespace think\exception;
-
-use think\exception\DbException;
 
 /**
  * PDO异常处理类
@@ -21,10 +19,11 @@ class PDOException extends DbException
 {
     /**
      * PDOException constructor.
-     * @param \PDOException $exception
-     * @param array         $config
-     * @param string        $sql
-     * @param int           $code
+     * @access public
+     * @param  \PDOException $exception
+     * @param  array         $config
+     * @param  string        $sql
+     * @param  int           $code
      */
     public function __construct(\PDOException $exception, array $config, $sql, $code = 10501)
     {

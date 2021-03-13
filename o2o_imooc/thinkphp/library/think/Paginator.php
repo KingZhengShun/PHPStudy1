@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2016 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -11,79 +11,107 @@
 
 namespace think;
 
-use think\paginator\Collection as PaginatorCollection;
-use think\Request;
+use ArrayAccess;
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
+use JsonSerializable;
+use Traversable;
 
-abstract class Paginator
+abstract class Paginator implements ArrayAccess, Countable, IteratorAggregate, JsonSerializable
 {
-    /** @var bool 是否为简洁模式 */
+    /**
+     * 是否简洁模式
+     * @var bool
+     */
     protected $simple = false;
 
-    /** @var PaginatorCollection 数据集 */
+    /**
+     * 数据集
+     * @var Collection
+     */
     protected $items;
 
-    /** @var integer 当前页 */
+    /**
+     * 当前页
+     * @var integer
+     */
     protected $currentPage;
 
-    /** @var  integer 最后一页 */
+    /**
+     * 最后一页
+     * @var integer
+     */
     protected $lastPage;
 
-    /** @var integer|null 数据总数 */
+    /**
+     * 数据总数
+     * @var integer|null
+     */
     protected $total;
 
-    /** @var  integer 每页的数量 */
+    /**
+     * 每页数量
+     * @var integer
+     */
     protected $listRows;
 
-    /** @var bool 是否有下一页 */
+    /**
+     * 是否有下一页
+     * @var bool
+     */
     protected $hasMore;
 
-    /** @var array 一些配置 */
+    /**
+     * 分页配置
+     * @var array
+     */
     protected $options = [
         'var_page' => 'page',
         'path'     => '/',
         'query'    => [],
-        'fragment' => ''
+        'fragment' => '',
     ];
 
-    protected function __construct($items, $listRows, $currentPage = null, $total = null, $simple = false, $options = [])
+    public function __construct($items, $listRows, $currentPage = null, $total = null, $simple = false, $options = [])
     {
         $this->options = array_merge($this->options, $options);
 
-        $this->options['path'] = $this->options['path'] != '/' ? rtrim($this->options['path'], '/') : $this->options['path'];
+        $this->options['path'] = '/' != $this->options['path'] ? rtrim($this->options['path'], '/') : $this->options['path'];
 
         $this->simple   = $simple;
         $this->listRows = $listRows;
 
+        if (!$items instanceof Collection) {
+            $items = Collection::make($items);
+        }
+
         if ($simple) {
-            if (!$items instanceof Collection) {
-                $items = Collection::make($items);
-            }
             $this->currentPage = $this->setCurrentPage($currentPage);
             $this->hasMore     = count($items) > ($this->listRows);
             $items             = $items->slice(0, $this->listRows);
         } else {
             $this->total       = $total;
-            $this->lastPage    = (int)ceil($total / $listRows);
+            $this->lastPage    = (int) ceil($total / $listRows);
             $this->currentPage = $this->setCurrentPage($currentPage);
             $this->hasMore     = $this->currentPage < $this->lastPage;
         }
-
-        $this->items = PaginatorCollection::make($items, $this);
+        $this->items = $items;
     }
 
     /**
+     * @access public
      * @param       $items
      * @param       $listRows
      * @param null  $currentPage
-     * @param bool  $simple
      * @param null  $total
+     * @param bool  $simple
      * @param array $options
-     * @return PaginatorCollection
+     * @return Paginator
      */
     public static function make($items, $listRows, $currentPage = null, $total = null, $simple = false, $options = [])
     {
-        $paginator = new static($items, $listRows, $currentPage, $total, $simple, $options);
-        return $paginator->items;
+        return new static($items, $listRows, $currentPage, $total, $simple, $options);
     }
 
     protected function setCurrentPage($currentPage)
@@ -98,7 +126,8 @@ abstract class Paginator
     /**
      * 获取页码对应的链接
      *
-     * @param $page
+     * @access protected
+     * @param  $page
      * @return string
      */
     protected function url($page)
@@ -114,27 +143,31 @@ abstract class Paginator
             $parameters = [];
             $path       = str_replace('[PAGE]', $page, $this->options['path']);
         }
+
         if (count($this->options['query']) > 0) {
             $parameters = array_merge($this->options['query'], $parameters);
         }
+
         $url = $path;
         if (!empty($parameters)) {
-            $url .= '?' . urldecode(http_build_query($parameters, null, '&'));
+            $url .= '?' . http_build_query($parameters, null, '&');
         }
+
         return $url . $this->buildFragment();
     }
 
     /**
      * 自动获取当前页码
-     * @param string $varPage
-     * @param int    $default
+     * @access public
+     * @param  string $varPage
+     * @param  int    $default
      * @return int
      */
     public static function getCurrentPage($varPage = 'page', $default = 1)
     {
-        $page = Request::instance()->request($varPage);
+        $page = Container::get('request')->param($varPage);
 
-        if (filter_var($page, FILTER_VALIDATE_INT) !== false && (int)$page >= 1) {
+        if (filter_var($page, FILTER_VALIDATE_INT) !== false && (int) $page >= 1) {
             return $page;
         }
 
@@ -143,11 +176,12 @@ abstract class Paginator
 
     /**
      * 自动获取当前的path
+     * @access public
      * @return string
      */
     public static function getCurrentPath()
     {
-        return Request::instance()->baseUrl();
+        return Container::get('request')->baseUrl();
     }
 
     public function total()
@@ -155,6 +189,7 @@ abstract class Paginator
         if ($this->simple) {
             throw new \DomainException('not support total');
         }
+
         return $this->total;
     }
 
@@ -173,21 +208,24 @@ abstract class Paginator
         if ($this->simple) {
             throw new \DomainException('not support last');
         }
+
         return $this->lastPage;
     }
 
     /**
      * 数据是否足够分页
+     * @access public
      * @return boolean
      */
     public function hasPages()
     {
-        return !($this->currentPage == 1 && !$this->hasMore);
+        return !(1 == $this->currentPage && !$this->hasMore);
     }
 
     /**
      * 创建一组分页链接
      *
+     * @access public
      * @param  int $start
      * @param  int $end
      * @return array
@@ -206,18 +244,21 @@ abstract class Paginator
     /**
      * 设置URL锚点
      *
+     * @access public
      * @param  string|null $fragment
      * @return $this
      */
     public function fragment($fragment)
     {
         $this->options['fragment'] = $fragment;
+
         return $this;
     }
 
     /**
      * 添加URL参数
      *
+     * @access public
      * @param  array|string $key
      * @param  string|null  $value
      * @return $this
@@ -239,10 +280,10 @@ abstract class Paginator
         return $this;
     }
 
-
     /**
      * 构造锚点字符串
      *
+     * @access public
      * @return string
      */
     protected function buildFragment()
@@ -252,7 +293,153 @@ abstract class Paginator
 
     /**
      * 渲染分页html
+     * @access public
      * @return mixed
      */
     abstract public function render();
+
+    public function items()
+    {
+        return $this->items->all();
+    }
+
+    public function getCollection()
+    {
+        return $this->items;
+    }
+
+    public function isEmpty()
+    {
+        return $this->items->isEmpty();
+    }
+
+    /**
+     * 给每个元素执行个回调
+     *
+     * @access public
+     * @param  callable $callback
+     * @return $this
+     */
+    public function each(callable $callback)
+    {
+        foreach ($this->items as $key => $item) {
+            $result = $callback($item, $key);
+
+            if (false === $result) {
+                break;
+            } elseif (!is_object($item)) {
+                $this->items[$key] = $result;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Retrieve an external iterator
+     * @access public
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * <b>Traversable</b>
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->items->all());
+    }
+
+    /**
+     * Whether a offset exists
+     * @access public
+     * @param  mixed $offset
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return $this->items->offsetExists($offset);
+    }
+
+    /**
+     * Offset to retrieve
+     * @access public
+     * @param  mixed $offset
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->items->offsetGet($offset);
+    }
+
+    /**
+     * Offset to set
+     * @access public
+     * @param  mixed $offset
+     * @param  mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        $this->items->offsetSet($offset, $value);
+    }
+
+    /**
+     * Offset to unset
+     * @access public
+     * @param  mixed $offset
+     * @return void
+     * @since  5.0.0
+     */
+    public function offsetUnset($offset)
+    {
+        $this->items->offsetUnset($offset);
+    }
+
+    /**
+     * Count elements of an object
+     */
+    public function count()
+    {
+        return $this->items->count();
+    }
+
+    public function __toString()
+    {
+        return (string) $this->render();
+    }
+
+    public function toArray()
+    {
+        try {
+            $total = $this->total();
+        } catch (\DomainException $e) {
+            $total = null;
+        }
+
+        return [
+            'total'        => $total,
+            'per_page'     => $this->listRows(),
+            'current_page' => $this->currentPage(),
+            'last_page'    => $this->lastPage,
+            'data'         => $this->items->toArray(),
+        ];
+    }
+
+    /**
+     * Specify data which should be serialized to JSON
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    public function __call($name, $arguments)
+    {
+        $collection = $this->getCollection();
+
+        $result = call_user_func_array([$collection, $name], $arguments);
+
+        if ($result === $collection) {
+            return $this;
+        }
+
+        return $result;
+    }
+
 }
