@@ -37,7 +37,6 @@ class Register extends Controller{
         $baseData=[
             'name'=>$info['name'],
             'city_id'=>$info['city_id'],
-
             'licence_logo'=>$info['licence_logo'],
             'description'=>empty($info['description'])?'':$info['description'],
             'bank_info'=>$info['bank_info'],
@@ -85,7 +84,7 @@ class Register extends Controller{
         ];
 
         $locationId=model('Bislocation')->bisBaseInfoAdd($locationDate);
-        //账号信息数据校验
+        //账号信息数据校验 并对密码进行加密！
         $bis_user_info=validate('Bis');
         if(!$bis_user_info->scene('bis_user_info')->check($info)){
             $this->error($bis_user_info->getError());

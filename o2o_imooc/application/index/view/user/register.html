@@ -15,7 +15,7 @@
     <div class="wrapper">
         <div class="head">
             <ul>  
-                <li><a href="index.html"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
+                <li><a href="/"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
                 <li class="divider"></li>
                 <li><a href="index.html"></a></li>
             </ul>
@@ -26,10 +26,10 @@
         </div>
 
         <div class="content">
-            <form>
+            <form action="{:url('user/register')}" method="post">
                 <p class="pass-form-item">
                     <label class="pass-label">用户名</label>
-                    <input type="text" name="userName" class="pass-text-input" placeholder="请设置用户名">
+                    <input type="text" name="username" class="pass-text-input" placeholder="请设置用户名">
                 </p>
                 <p class="pass-form-item">
                     <label class="pass-label">邮箱号</label>
@@ -42,13 +42,13 @@
                 </p>
                 <p class="pass-form-item">
                     <label class="pass-label">确认密码</label>
-                    <input type="text" name="password" class="pass-text-input" placeholder="请设置登录密码">
+                    <input type="text" name="repassword" class="pass-text-input" placeholder="请设置登录密码">
                 </p>
                 <p class="pass-form-item">
                     <label class="pass-label">验证码</label>
-                    <input type="text" name="verifyCode" class="pass-text-input " placeholder="请输入验证码">
-                </p>
-                
+                    <input type="text" name="verifyCode" style="margin-bottom: 20px" class="pass-text-input " placeholder="请输入验证码">
+                   {:captcha_img()}
+                </p>                       
                 <p class="pass-form-item">
                     <input type="submit" value="注册" class="pass-button">
                 </p>
