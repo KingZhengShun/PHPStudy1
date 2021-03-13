@@ -4,14 +4,14 @@ use think\Controller;
 
 class User extends Controller
 {
-    public function login()
+    public function userLogin()
     {
 	return $this->fetch('login');
 
     }
 
 
-     public function register()
+     public function userRegister()
     {
 	return $this->fetch('register');
     }
