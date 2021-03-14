@@ -11,6 +11,7 @@ class Client extends Validate{
     ];
 
     protected $scene=[
-        'client_base_info'=>['username','email','password','repassword']
+        'client_base_info'=>['username','email','password','repassword'],
+        'client_login_info'=>['username','password']
     ];
 }
