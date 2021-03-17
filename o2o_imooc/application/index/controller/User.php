@@ -6,7 +6,12 @@ class User extends Controller
 {
     public function login()
     {
-	return $this->fetch('login');
+	   //获取session
+        $user=session('o2o_user','','o2o');
+        if($user&&$user->id){
+            $this->redirect(url('index/index'));
+        }
+        return $this->fetch();
 
     }
 
@@ -47,4 +52,51 @@ class User extends Controller
 	    }
 		return $this->fetch('register');
     }
+
+    public function loginCheck(){
+            
+            //检查信息提交方式
+            if (!request()->isPost()) {
+                $this->error('信息提交方式有误！');
+            }
+            //获取表单信息
+            $data=input('post.');
+            
+            //对表单继续校验
+            $valid=validate('Client');
+            if (!$valid->scene('client_login_info')->check($data)) {
+                $this->error($valid->geterror());
+            }
+            
+            //回去账户信息和密码
+            try{
+                $clientInfo=model('User')->getClientInfoByUserName($data['username']);
+            }catch(\Exception $e){
+                $this->error($e->getMessage());
+            } 
+
+            //校验账户是否存在
+            if(!$clientInfo||$clientInfo->status!=1){
+                $this->error('账户不存在！');
+            }
+
+            //校验密码是否正确
+            $password=md5($data['password'].$clientInfo->code);
+            if($password!=$clientInfo->password){
+                $this->error("密码不正确");
+            }
+            //登录成功
+            model('User')->updateById(['last_login_time'=>time()],$clientInfo->id); 
+            //把用户的信息记录到session
+            session('o2o_user',$clientInfo,'o2o');
+            //跳转到首页；
+            $this->success('登录成功',url('index/index'));
+        }
+
+
+        public function logout(){
+            //清空session，退出登录
+            session(null,'o2o');
+            $this->redirect(url('user/login'));
+        }
 }
