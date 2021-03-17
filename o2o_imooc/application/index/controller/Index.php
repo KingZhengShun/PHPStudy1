@@ -2,12 +2,13 @@
 namespace app\index\controller;
 use think\Controller;
 
-class Index extends Controller
+class Index extends Base
 {	
 	//主页导航
 	public function index()
 	{
-	return $this->fetch();
+
+		return $this->fetch();
 
 	}
 
@@ -31,6 +32,13 @@ class Index extends Controller
 	{
 	return $this->fetch();
 
+	}
+
+
+
+	//搜索地址
+	public function address(){
+		return $this->fetch();
 	}
 
 }

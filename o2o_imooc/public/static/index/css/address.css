@@ -1,0 +1,10 @@
+content{
+	max-width: 1440px;
+	height: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
+.hotcity{
+	margin: 20px 0;
+}

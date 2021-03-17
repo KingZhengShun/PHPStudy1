@@ -12,7 +12,15 @@ class Regions extends Model{
         ];
 
         $order=[
-            'region_id'=>'desc'
+            'region_id'=>'asc'
+        ];
+        return $this->where($data)->order($order)->select();
+    }
+
+    public function getNormalCitysInfo(){
+        $data=[];
+        $order=[
+            'region_id'=>'asc'
         ];
         return $this->where($data)->order($order)->select();
     }

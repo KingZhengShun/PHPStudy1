@@ -9,7 +9,7 @@ class City extends Controller{
     {
         $this->obj=model('Regions');
     }
-
+    //获取二级城市信息
     public function getCitysByParentId(){
         $id=input('post.id');
         if(!$id){
@@ -20,7 +20,6 @@ class City extends Controller{
             return show(0,'false');
         }
         return show(1,'success',$citys);
-
-
+        
     }
 }
