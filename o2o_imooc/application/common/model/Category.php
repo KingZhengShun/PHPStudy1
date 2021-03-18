@@ -51,4 +51,41 @@ class Category extends Model
         return $result;
     }
 
+
+    public function getNormalRecommendCateByParentId($id=0,$limit=5){
+        $data=[
+            'parent_id'=>$id,
+            'status'=>1
+        ];
+        $order=[
+            'listorder'=>'desc',
+            'id'=>'desc',
+        ];
+        $result=$this->where($data)->order($order);
+        if ($limit) {
+            $result=$result->limit($limit);
+        }
+
+        return $result->select();
+    }
+
+
+    public function getNormalCategoryIdByParentId($Ids){
+        $data=[
+            'parent_id'=>['in',$Ids],
+            'status'=>1
+        ];
+        $order=[
+            'listorder'=>'desc',
+            'id'=>'desc',
+        ];
+
+        // print_r($data);exit;
+        $result=$this->where($data)->order($order)->select();
+
+        return $result;
+
+
+    }
+
 }
