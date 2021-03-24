@@ -102,6 +102,7 @@ class Register extends Controller{
             'is_main'=>1,//总店信息
             'xpoint'=>empty($xpoint)?'':$xpoint,
             'ypoint'=>empty($ypoint)?'':$ypoint,
+            'status'=>0
         ];
 
         $locationId=model('Bislocation')->bisBaseInfoAdd($locationDate);
