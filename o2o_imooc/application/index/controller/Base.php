@@ -24,16 +24,17 @@ class Base extends Controller{
 
 	//获取城市信息
 	public function getCity($citys){
+		$defaultname='';
 		foreach ($citys as $key => $city) {
 			$city=$city->toArray();
-			// print_r($city);exit;
 			if($city['is_default']==1){
 				$defaultname=$city['region_name'];
 				break;
 			}
 		}
+		// print_r($defaultname);exit;
 		//判断是否有默认数据
-		$defaultname=$defaultname?$defaultname:'天津市';
+		$defaultname=empty($defaultname)?$defaultname:'天津市';
 		//判断session是否有数据并且url没有数据
 		if (session('citynames','','o2o')&&!input('get.city_name')) {
 			$citynames=session('citynames','','o2o');

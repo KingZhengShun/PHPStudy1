@@ -22,6 +22,9 @@ class Regions extends Model{
         $order=[
             'region_id'=>'asc'
         ];
-        return $this->where($data)->order($order)->select();
+        $result= $this->where($data)->order($order)->select();
+        
+        // print_r($result);exit;
+        return $result;
     }
 }
