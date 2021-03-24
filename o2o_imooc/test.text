@@ -1,0 +1,3 @@
+<!-- {volist name='bislocation' id='vo'}
+				<input name="location_ids[]" type="checkbox" id="checkbox" value="{$vo.id}"/>{$vo.name}
+				{/volist} -->

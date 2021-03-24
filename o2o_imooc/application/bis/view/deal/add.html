@@ -2,7 +2,7 @@
 {include file="public/header" /}
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加团购商品信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="{:url('deal/add')}">
+	<form class="form form-horizontal" id="form-article-add" method="post" enctype='multipart/form-data' action="{:url('deal/add')}">
 	基本信息：
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>团购名称：</label>
@@ -66,9 +66,8 @@
 		<div class="row cl">
               <label class="form-label col-xs-4 col-sm-2">缩略图：</label>
               <div class="formControls col-xs-8 col-sm-9">
-                <input id="file_upload"  type="file" multiple="true" >
+                <input id="file_upload"  type="file" multiple="true" name="image" >
                 <img style="display: none" id="upload_org_code_img" src="" width="150" height="150">
-                <input id="file_upload_image" name="image" type="hidden" multiple="true" value="">
               </div>
         </div>
         <div class="row cl">

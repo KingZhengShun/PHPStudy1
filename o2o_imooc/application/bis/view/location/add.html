@@ -2,7 +2,7 @@
 {include file="public/header" /}
 <div class="cl pd-5 bg-1 bk-gray mt-20"> 添加分店信息</div>
 <article class="page-container">
-	<form class="form form-horizontal" id="form-article-add" method="post" action="{:url('location/add')}">
+	<form class="form form-horizontal" id="form-article-add" enctype="multipart/form-data" method="post" action="{:url('location/add')}">
 	基本信息：
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分店名称：</label>
@@ -35,9 +35,8 @@
 		<div class="row cl">
               <label class="form-label col-xs-4 col-sm-2">缩略图：</label>
               <div class="formControls col-xs-8 col-sm-9">
-                <input id="file_upload"  type="file" multiple="true" >
+                <input id="file_upload"  type="file" multiple="true" name="logo" >
                 <img style="display: none" id="upload_org_code_img" src="" width="150" height="150">
-                <input id="file_upload_image" name="logo" type="hidden" multiple="true" value="">
               </div>
         </div>
 		<div class="row cl">
@@ -107,9 +106,7 @@
 <script>
  var SCOPE = {
    'city_url' : "{:url('api/city/getCitysByParentId')}",
-    'category_url' : "{:url('api/category/getCategoryByParentId')}",
-	'uploadify_swf' : "__STATIC__/admin/uploadify/uploadify.swf",
-	'image_upload' : "{:url('api/image/upload')}"
+   'category_url' : "{:url('api/category/getCategorysByParentId')}"
  };
 
 </script>

@@ -7,7 +7,7 @@ class Bislocation extends Model
 {
 	protected $autoWriteTimestamp = true;
 	public function bisBaseInfoAdd($data){
-        $data['status']=0;
+        $data['status']=empty($data)?0:$data['status'];
         $this->save($data);
 		return $this->id;
 	}
@@ -16,7 +16,7 @@ class Bislocation extends Model
 	public function getNormalLocationByBisId($bisId){
 	    $data=[
 	      'bis_id'=>$bisId,
-            'status'=>1
+          'status'=>1
         ];
 	    return $this->where($data)->select();
 

@@ -2,7 +2,7 @@
 {include file="public/header" /}
 <div class="cl pd-5 bg-1 bk-gray mt-20"> <h1>商户入驻申请</h1></div>
 <article class="page-container">
-	<form class="form form-horizontal"  method="post" action="{:url('Register/add')}">
+	<form class="form form-horizontal" enctype="multipart/form-data" method="post" action="{:url('Register/add')}">
 	基本信息：
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户名称：</label>
@@ -35,17 +35,15 @@
 		<div class="row cl">
               <label class="form-label col-xs-4 col-sm-2">缩略图：</label>
               <div id="slt" class="formControls col-xs-8 col-sm-9">
-                <input id="file_upload"  type="file" multiple="true" >
-                <img style="display: none" id="upload_org_code_img" src="" width="150" height="150">
-                <input id="file_upload_image" name="logo" type="hidden" multiple="true" value="">
+                <input id="file_upload"  type="file" multiple="true" name="logo"  >
+                <img style="display: none;margin-top: 10px;" id="upload_org_code_img" src="" width="150" height="150">
               </div>
         </div>
         <div class="row cl">
               <label class="form-label col-xs-4 col-sm-2">营业执照：</label>
               <div class="formControls col-xs-8 col-sm-9">
-                <input id="file_upload_other"  type="file" multiple="true" >
-                <img style="display: none" id="upload_org_code_img_other" src="" width="150" height="150">
-                <input id="file_upload_image_other" name="licence_logo" type="hidden" multiple="true" value="">
+                <input id="file_upload_other"  type="file" multiple="true" name="licence_logo" >
+                <img style="display: none;margin-top: 10px;" id="upload_org_code_img_other" src="" width="150" height="150">
               </div>
         </div>
         
@@ -120,16 +118,22 @@
 			<label class="form-label col-xs-4 col-sm-2">所属子类：</label>
 			<div class="formControls col-xs-8 col-sm-3 skin-minimal">
 				<div class="check-box se_category_id">
-
 				</div>
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">商户地址：</label>
 			<div class="formControls col-xs-8 col-sm-3">
-				<input type="text" class="input-text" value="" placeholder="" id="" name="address">
+				<input type="text" class="input-text" value="" placeholder="" id="address" name="address">
 			</div>
 			<a  class="btn btn-default radius ml-10 maptag">标注</a>
+			<div>
+				<label class="form-label col-xs-4 col-sm-2"></label>
+				<img style="display: none;margin-top: 10px;margin-left: 15px" id="map_img" src="" width="400" height="300">
+			</div>
+				
+			</div>
+			
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2">营业时间:</label>
@@ -175,6 +179,7 @@
 <script>
 	var SCOPE={
 		'city_url':'{:url('api/City/getCitysByParentId')}',
+		'map_url':'{:url('api/Map/getMapPhoto')}',
 		'category_url':'{:url('api/Category/getCategorysByParentId')}',
 		'uploadify_swf':'__STATIC__/admin/uploadify/uploadify.swf',
 		'image_upload':'{:url('api/Image/upload')}'

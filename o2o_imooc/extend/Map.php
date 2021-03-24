@@ -44,7 +44,7 @@ class Map{
             'center'=>$center,
             'with'=>400,
             'height'=>300,
-            'zoom'=>11
+            'zoom'=>14
         ];
         $url=config('map.baidu_map_url').config('map.staticimage').'?'.http_build_query($data);
         return $url;

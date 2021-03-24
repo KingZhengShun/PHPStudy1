@@ -76,7 +76,7 @@ function pagination($obj){
     return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5-o2o">'.$obj->render().'</div>';
 }
 
-
+/**获取城市名称**/
 function getSeCityName($path){
     if (empty($path)){
         return '';
@@ -89,5 +89,18 @@ function getSeCityName($path){
     }
     $city=model('Regions')->get($cityId);
     return $city->region_name;
+}
+
+
+//图片上传
+function photoUpdate($imgs){
+    $file=request()->file($imgs);
+    // print_r($file);exit;
+    $info = $file->move('uploads/image');
+    if($info){
+        // 成功上传后 获取上传信息
+        $imageUrl = '/uploads/image/'.$info->getSaveName();
+    }
+    return $imageUrl;
 }
 

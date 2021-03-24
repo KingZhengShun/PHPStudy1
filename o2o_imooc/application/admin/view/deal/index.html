@@ -5,37 +5,36 @@
 <div class="page-container">
   <div class="cl pd-5 bg-1 bk-gray mt-20">
     <div class="text-c">
-      <form action="{:url('deal/index')}" method="get">
-		 <span class="select-box inline">
-			<select name="category_id" class="select">
-              <option value="0">全部分类</option>
-              {volist name="categorys" id="vo"}
-              <option value="{$vo.id}" >{$vo.name}</option>
-              {/volist}
-            </select>
-		</span>
-    <span class="select-box inline">
-      <select name="city_id" class="select cityId">
-              <option value="0">全部省份</option>
-              {volist name="provinces" id ="vo"}
-              <option value="{$vo.region_id}">{$vo.region_name}</option>
-              {/volist}
-            </select>
-    </span>		     
-    <span class="select-box inline">
-      <select name="se_city_id" class="select se_city_id">
-          <option value="0">--城市--</option>
-      </select>
-    </span> 
+      <form action="{:url('deal/index')}" method="post">
+  		 <span class="select-box inline">
+  			<select name="category_id" class="select">
+                <option value="0">全部分类</option>
+                {volist name="categorys" id="vo"}
+                <option value="{$vo.id}" >{$vo.name}</option>
+                {/volist}
+              </select>
+  		  </span>
+        <span class="select-box inline">
+          <select name="city_id" class="select cityId">
+                <option value="0">全部省份</option>
+                {volist name="provinces" id ="vo"}
+                <option value="{$vo.region_id}">{$vo.region_name}</option>
+                {/volist}
+              </select>
+        </span>		     
+        <span class="select-box inline">
+          <select name="se_city_id" class="select se_city_id">
+            <option value="0">--城市--</option>
+          </select>
+        </span> 
 
-    日期范围：
-      <input type="text" name="start_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
-      -
-      <input type="text" name="end_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value=""  style="width:120px;">
-      <input type="text" name="name" id=""  value="" placeholder=" 商品名称" style="width:250px" class="input-text">
-      <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索
-      </button>
-        </form>
+        日期范围：
+        <input type="text" name="start_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value="" style="width:120px;" >
+        -
+        <input type="text" name="end_time" class="input-text" id="countTimestart" onfocus="selecttime(1)" value=""  style="width:120px;">
+        <input type="text" name="name" id=""  value="" placeholder=" 商品名称" style="width:250px" class="input-text">
+        <button name="" id="" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+      </form>
     </div>
   </div>
   <div class="mt-20">

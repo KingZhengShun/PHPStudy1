@@ -442,3 +442,10 @@
     border-bottom: 1px solid #dfdfdf;
 }
 
+
+/*个人添加*/
+.item-large img{
+    width: 100%;
+    height: 100%;
+}
+

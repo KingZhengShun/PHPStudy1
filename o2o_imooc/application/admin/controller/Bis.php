@@ -67,9 +67,9 @@ class Bis extends Controller
         //获取商户基本信息数据
         $data=model('bisuser')->get($id);
         //获取总店信息数据
-        $locationData=model('Bislocation')->get(['bis_id'=>$id]);
+        $locationData=model('Bislocation')->get(['bis_id'=>$id,'is_main'=>1]);
         //获取个人账号信息数据
-        $accountData=model('Bisaccount')->get(['bis_id'=>$id]);
+        $accountData=model('Bisaccount')->get(['bis_id'=>$id,'is_main'=>1]);
 
         return $this->fetch('',[
             'citys'=>$citys,
@@ -85,6 +85,7 @@ class Bis extends Controller
      */
     public function status(){
         $data = input('get.');
+        // print_r($data);exit;
         //校验状态
         $validate = validate('Category');
         if(!$validate->scene('status')->check($data)) {
@@ -94,6 +95,7 @@ class Bis extends Controller
         $location=model('Bislocation')->save(['status'=>$data['status']],['bis_id'=>$data['id']]);
         $account=model('Bisaccount')->save(['status'=>$data['status']],['bis_id'=>$data['id']]);
         if ($res && $location && $account){
+
             //发送邮件
             //status -1 删除记录，status 0 待审核，status 1 审核通过 status 2 审核不通过
 

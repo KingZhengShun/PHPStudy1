@@ -1,6 +1,7 @@
 <?php
 namespace app\bis\controller;
 use think\Controller;
+// use thin\Request;
 class Register extends Controller{
     /**
      * @return mixed
@@ -28,6 +29,23 @@ class Register extends Controller{
         }
         //获取表单数据
         $info=input('post.');
+
+        //上传缩略图到服务器并且获取图片地址
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] == 0){
+            $logo = request()->file('logo');
+            // print_r($logo);
+        }
+        if(isset($logo)){
+            $info['logo']=model('ImageUpdate')->photoUpdate('logo');
+        }
+        //上传营业执照到服务器并且获取图片地址
+        if (isset($_FILES['licence_logo']) && $_FILES['licence_logo']['error'] == 0){
+            $licence_logo = request()->file('licence_logo');
+        }        
+        if(isset($licence_logo)){
+            $info['licence_logo']=model('ImageUpdate')->photoUpdate('licence_logo');
+        }
+
         //基本信息数据校验
         $validate_base_info=validate('Bis');
         if(!$validate_base_info->scene('bis_base_info')->check($info)){
@@ -37,6 +55,8 @@ class Register extends Controller{
         $baseData=[
             'name'=>$info['name'],
             'city_id'=>$info['city_id'],
+            'city_path'=>empty($info['se_city_id'])?$info['city_id']:$info['city_id'].','.$info['se_city_id'],
+            'logo'=>$info['logo'],
             'licence_logo'=>$info['licence_logo'],
             'description'=>empty($info['description'])?'':$info['description'],
             'bank_info'=>$info['bank_info'],
@@ -79,6 +99,7 @@ class Register extends Controller{
             'address'=>$info['address'],
             'open_time'=>$info['open_time'],
             'content'=>empty($info['content'])?'':$info['content'],
+            'is_main'=>1,//总店信息
             'xpoint'=>empty($xpoint)?'':$xpoint,
             'ypoint'=>empty($ypoint)?'':$ypoint,
         ];
@@ -122,4 +143,8 @@ class Register extends Controller{
             'detail'=>$detail,
         ]);
     }
+
+
+
+    
 }

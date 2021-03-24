@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章添加</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<h3>文章添加</h3>
+<form action="{:url('index/save')}" method="post" enctype="multipart/form-data">
+文章标题：<input type="text" name="title" value=""><br/><br/>
+文章描述：<input type="text" name="description" value=""><br/><br/>
+文章封面：<input type="file" name="image_url" /> <br><br>
+居住地址：<input type="button" name="map_url">
+    <button type="submit">提交</button><br><br>
+</form>
+ 
+<img style="margin:20px" width="500px" height="300px" src="http://api.map.baidu.com/staticimage/v2?ak=R1WcMPOqCUuVh5dpKG6f3yBDuCIFRuos&center=115.953704%2C35.599993&with=400&height=300&zoom=13"/>
+ 
+<script type="text/javascript">
+    $("input[name='image_url']").change(function(){
+    	console.log($(this));
+        $(".img").attr("src",URL.createObjectURL($(this)[0].files[0]));
+    });
+</script>
+</body>
+</html>

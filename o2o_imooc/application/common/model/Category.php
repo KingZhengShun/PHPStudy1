@@ -41,7 +41,7 @@ class Category extends Model
             ->paginate();
         return $result;
     }
-
+    //获取一级分类或者指定的二级分类
     public function getNormalCagetorysByParentId($parentID=0){
         $data=[
             'parent_id'=>$parentID
