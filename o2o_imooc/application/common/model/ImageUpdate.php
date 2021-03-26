@@ -16,5 +16,5 @@ class ImageUpdate extends Model{
             $imageUrl = '/uploads/image/'.$info->getSaveName();
         }
         return $imageUrl;
-    }
+     }   
 }

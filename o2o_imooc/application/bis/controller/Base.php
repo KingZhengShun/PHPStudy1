@@ -27,4 +27,10 @@ class Base extends Controller{
         }
         return $this->account;
     }
+
+    public function logout(){
+            //清空session，退出登录
+            session(null,'bis');
+            $this->redirect(url('login/index'));
+        }
 }

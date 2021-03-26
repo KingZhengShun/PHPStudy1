@@ -85,7 +85,6 @@ class Bis extends Controller
      */
     public function status(){
         $data = input('get.');
-        // print_r($data);exit;
         //校验状态
         $validate = validate('Category');
         if(!$validate->scene('status')->check($data)) {
