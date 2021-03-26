@@ -1,5 +1,6 @@
-﻿# Host: localhost  (Version: 5.5.29)
-# Date: 2021-03-25 01:50:41
+
+﻿# Host: localhost  (Version: 5.5.29-log)
+# Date: 2021-03-27 02:47:59
 # Generator: MySQL-Front 5.3  (Build 4.234)
 
 /*!40101 SET NAMES utf8 */;
@@ -76,13 +77,12 @@ CREATE TABLE `o2o_bisaccount` (
   PRIMARY KEY (`id`),
   KEY `bis_id` (`bis_id`),
   KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "o2o_bisaccount"
 #
-
-INSERT INTO `o2o_bisaccount` VALUES (31,'zhengshun','3adb25a8c270c301bf647f6644df59e8','6366',47,'',1616602708,1,0,1,1616602427,1616602708);
+INSERT INTO `o2o_bisaccount` VALUES (31,'zhengshun','3adb25a8c270c301bf647f6644df59e8','6366',47,'',1616755253,1,0,1,1616602427,1616755253);
 
 #
 # Structure for table "o2o_bislocation"
@@ -118,7 +118,7 @@ CREATE TABLE `o2o_bislocation` (
   KEY `bis_id` (`bis_id`),
   KEY `category_id` (`category_id`),
   KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "o2o_bislocation"
@@ -153,7 +153,7 @@ CREATE TABLE `o2o_bisuser` (
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `caty_id` (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "o2o_bisuser"
@@ -176,7 +176,7 @@ CREATE TABLE `o2o_category` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `parend_id` (`parent_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "o2o_category"
@@ -202,8 +202,8 @@ CREATE TABLE `o2o_deal` (
   `end_time` int(11) NOT NULL DEFAULT '0' COMMENT '团购结束时间',
   `origin_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '团购价格',
   `current_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '正常价格',
-  `city_id` int(11) NOT NULL DEFAULT '0' COMMENT '以及城市id',
-  `city_path` varchar(255) DEFAULT NULL COMMENT '城市地址',
+  `city_id` int(11) NOT NULL DEFAULT '0' COMMENT '一级城市id',
+  `se_city_id` int(11) DEFAULT NULL COMMENT '二级城市id',
   `buy_count` int(11) NOT NULL DEFAULT '0' COMMENT '限购数量',
   `total_count` int(11) NOT NULL DEFAULT '0' COMMENT '库存数',
   `coupons_begin_time` int(11) NOT NULL DEFAULT '0' COMMENT '消费卷生效时间',
@@ -223,13 +223,13 @@ CREATE TABLE `o2o_deal` (
   KEY `city_id` (`city_id`),
   KEY `start_time` (`start_time`),
   KEY `end_time` (`end_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "o2o_deal"
 #
 
-INSERT INTO `o2o_deal` VALUES (5,'肥牛火锅代金券',1,7,47,'32','/uploads/image/20210325\\6fbca4acbfddc3bf4ffadf48df896da2.jpeg','<p>test</p>',1616602800,1616775600,300.00,150.00,1000010,'1000010,1001019',0,500,1616689200,1616862000,'121.401234','28.662658',31,0.00,'<p>test</p>',0,0,1616602874,1616602874);
+INSERT INTO `o2o_deal` VALUES (5,'肥牛火锅代金券',1,7,47,'32','/uploads/image/20210325\\6fbca4acbfddc3bf4ffadf48df896da2.jpeg','<p>test</p>',1616601600,1616774400,300.00,150.00,1000010,1001019,0,500,1616688000,1616860800,'121.401234','28.662658',31,0.00,'<p>test</p>',0,0,1616602874,1616758483),(6,'肯德基快餐店',1,9,47,'32','/uploads/image/20210325\\49a6b3c990fd2089848e2f9187338b7f.jpeg','<p>test</p>',1616652720,1616825520,300.00,150.00,1000010,1000939,0,500,1616825580,1616998380,'121.401234','28.662658',31,0.00,'<p>test</p>',0,0,1616652828,1616758516),(7,'嘻哈KTV',2,24,47,'32','/uploads/image/20210326\\8075bb57ef02afee2a885d59a65fe645.jpeg','<p>杀杀杀</p>',1616753280,1616926080,300.00,150.00,1000014,1001509,0,500,1616839680,1617012540,'121.401234','28.662658',31,0.00,'<p>杀杀杀</p>',0,1,1616753352,1616778413),(8,'死光之城',4,15,47,'31','/uploads/image/20210326\\6edd54c3e9a16f05a60ac3a30a526306.jpeg','<p>杀杀杀s&#39;s</p>',1616753400,1616839800,300.00,150.00,1000008,1000815,0,500,1616839800,1617012600,'120.178989','30.188928',31,0.00,'<p>事实上</p>',0,0,1616753433,1616773105),(9,'春节服装',5,14,47,'31','/uploads/image/20210326\\a55855928aef8f4fc69ae929073f22cb.jpeg','<p>谁的</p>',1616756880,1616929680,300.00,150.00,1000010,1000976,0,500,1616843280,1617016080,'120.178989','30.188928',31,0.00,'<p>士大夫</p>',0,1,1616756989,1616778383);
 
 #
 # Structure for table "o2o_featured"
@@ -248,13 +248,13 @@ CREATE TABLE `o2o_featured` (
   `create_time` int(11) unsigned NOT NULL DEFAULT '0',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "o2o_featured"
 #
 
-INSERT INTO `o2o_featured` VALUES (1,0,'肥牛火锅','/uploads/image/20210325\\d1a94f1a81b28676e60c74e057579a7e.jpeg','','火锅就酒越喝越有',0,0,1616605497,1616605497),(2,0,'春节少女服饰','/uploads/image/20210325\\ba561d3462476a9f720858e922a30a52.jpeg','','春节服饰少女心',0,0,1616605518,1616605518),(3,1,'春节少女服饰','/uploads/image/20210325\\110c11a7af96e99eb9cbfcce78a5d75d.jpg','','面朝大海春暖花开',0,0,1616605546,1616605546);
+INSERT INTO `o2o_featured` VALUES (1,0,'肥牛火锅','/uploads/image/20210325\\d1a94f1a81b28676e60c74e057579a7e.jpeg','','火锅就酒越喝越有',0,0,1616605497,1616605497),(2,0,'春节少女服饰','/uploads/image/20210325\\ba561d3462476a9f720858e922a30a52.jpeg','','春节服饰少女心',0,1,1616605518,1616758070),(3,1,'春节少女服饰','/uploads/image/20210325\\110c11a7af96e99eb9cbfcce78a5d75d.jpg','','面朝大海春暖花开',0,0,1616605546,1616605546);
 
 #
 # Structure for table "o2o_regions"
@@ -299,9 +299,9 @@ CREATE TABLE `o2o_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 #
 # Data for table "o2o_user"
 #
 
+INSERT INTO `o2o_user` VALUES (1,'zhengshun','998817c21e63fb0ed31879e67923d8da','2290','',1616648113,'1360688246@qq.com','',0,1,1616648107,1616648113);

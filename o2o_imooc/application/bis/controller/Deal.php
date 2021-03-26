@@ -52,7 +52,7 @@ class Deal extends Base{
                 'origin_price'=>$info['origin_price'],
                 'current_price'=>$info['current_price'],
                 'city_id'=>$info['city_id'],
-                'city_path'=>empty($info['se_city_id'])?$info['city_id']:$info['city_id'].','.$info['se_city_id'],
+                'se_city_id'=>empty($info['se_city_id'])?'':$info['se_city_id'],
                 'buy_count'=>'',
                 'total_count'=>$info['total_count'],
                 'xpoint'=>$location->xpoint,
@@ -78,13 +78,8 @@ class Deal extends Base{
             //获取需查看修改团购商品的详情信息
             $DealData=model('Deal')->where(['id'=>$data['id']])->select();
             //通过团购信息获取二级城市信息
-            $city_id=explode(',',$DealData[0]->city_path);
-            if(count($city_id)==2){
-                $datas=['region_id'=>$city_id[1]];
-            }else{
-                $datas=['region_id'=>$city_id[0]];
-            }
-            $se_cityInfo=model('regions')->where($datas)->find();
+            $city_id=['region_id'=>$DealData[0]->se_city_id];
+            $se_cityInfo=model('regions')->where($city_id)->find();
             //获取省信息
             $province=model('regions')->getNormalCitysByParentId();
             //获取一级栏目分类数据列表数据
@@ -99,8 +94,8 @@ class Deal extends Base{
             // print_r($bislocation);exit;
             return $this->fetch('deal/editDeal',[
                 'DealData'=>$DealData,
-                'province'=>$province,
                 'se_cityInfo'=>$se_cityInfo,
+                'province'=>$province,
                 'categorys'=>$categorys,
                 'se_categorys'=> $se_categorys ,
                 'bislocation'=>$bislocation
@@ -109,9 +104,6 @@ class Deal extends Base{
         
         
     }
-
-
-
 
 
     public function add(){
@@ -146,7 +138,7 @@ class Deal extends Base{
                 'origin_price'=>$info['origin_price'],
                 'current_price'=>$info['current_price'],
                 'city_id'=>$info['city_id'],
-                'city_path'=>empty($info['se_city_id'])?$info['city_id']:$info['city_id'].','.$info['se_city_id'],
+                'se_city_id'=>empty($info['se_city_id'])?'':$info['se_city_id'],
                 'buy_count'=>'',
                 'total_count'=>$info['total_count'],
                 'xpoint'=>$location->xpoint,

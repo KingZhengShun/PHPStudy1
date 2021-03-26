@@ -15,4 +15,14 @@ class Deal extends BaseModel{
 		// echo $this->getLastSql();exit;
 		return $result;
 	}
+
+	public function getNormalDeals($data=[]){
+		$data['status']=0;
+		$order=['id'=>'desc'];
+		$result= $this->where($data)
+		->order($order)
+		->select();
+		return $result;
+	}
+
 }
