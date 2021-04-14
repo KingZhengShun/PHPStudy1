@@ -19,7 +19,9 @@ class Base extends Controller{
 		$this->assign('citys',$citys);
 		$this->assign('city',$this->city);
 		$this->assign('cats',$cats);
+		$this->assign('controler',strtolower(request()->controller()));
 		$this->assign('userInfo',$this->getLoginUser());
+		$this->assign('title','o2o团购网');
 	}
 
 	//获取城市信息
@@ -34,7 +36,7 @@ class Base extends Controller{
 		}
 		// print_r($defaultname);exit;
 		//判断是否有默认数据
-		$defaultname=empty($defaultname)?$defaultname:'天津市';
+		$defaultname=empty($defaultname)?$defaultname:'台州市';
 		//判断session是否有数据并且url没有数据
 		if (session('citynames','','o2o')&&!input('get.city_name')) {
 			$citynames=session('citynames','','o2o');

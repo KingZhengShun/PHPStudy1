@@ -1,8 +1,6 @@
 <?php
 namespace app\common\model;
 
-use think\Model;
-
 class Bisaccount extends Model
 {
 	protected $autoWriteTimestamp = true;

@@ -1,4 +1,3 @@
-
 ﻿# Host: localhost  (Version: 5.5.29-log)
 # Date: 2021-03-27 02:47:59
 # Generator: MySQL-Front 5.3  (Build 4.234)

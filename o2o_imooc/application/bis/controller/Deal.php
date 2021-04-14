@@ -3,12 +3,13 @@ namespace app\bis\controller;
 use think\Controller;
 use think\Db;
 class Deal extends Base{
+    public $bisId;
 
     public function index(){
 
-
+        $bisId=$this->getLoginUser()->bis_id;
         //查询团购表单的信息
-        $DealData=model('deal')->select();        
+        $DealData=model('deal')->where('bis_id','eq',$bisId)->select();        
         return $this->fetch("",[
             "DealData"=>$DealData
         ]);
@@ -105,7 +106,7 @@ class Deal extends Base{
         
     }
 
-
+/**添加团购信息**/
     public function add(){
         //获取商家的id信息
             $bisId=$this->getLoginUser()->bis_id;

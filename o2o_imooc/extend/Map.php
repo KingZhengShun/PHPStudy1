@@ -42,6 +42,7 @@ class Map{
         $data=[
             'ak'=>config('map.ak'),
             'center'=>$center,
+            'markers'=>$center,
             'with'=>400,
             'height'=>300,
             'zoom'=>14

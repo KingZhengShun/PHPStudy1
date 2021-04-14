@@ -48,7 +48,7 @@ function doCurl($url,$type=0,$data=[]){
     return $output;
 }
 
-
+/**商户申请，根据状态进行提示**/
 function bisRegister($status){
     if($status==0){
         $str='待会审核，平台审核完成会发送邮件通知，请关注！';
@@ -102,5 +102,13 @@ function photoUpdate($imgs){
         $imageUrl = '/uploads/image/'.$info->getSaveName();
     }
     return $imageUrl;
+}
+
+//设置订单号
+function setOrderSn(){
+    //根据当前时间拼接订单号
+    list($t1,$t2)=explode(' ',microtime());
+    $t3=explode('.',$t1*10000);
+    return $t2.$t3[0].(rand(10000,99999));
 }
 
