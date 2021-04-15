@@ -29,11 +29,11 @@ class WxPayConfig extends WxPayConfigInterface
 	 */
 	public function GetAppId()
 	{
-		return '';
+		return 'wx8397f8696b538317';
 	}
 	public function GetMerchantId()
 	{
-		return '';
+		return '1473426802';
 	}
 	
 	//=======【支付相关配置：支付成功回调地址/签名方式】===================================
@@ -89,7 +89,7 @@ class WxPayConfig extends WxPayConfigInterface
 	 */
 	public function GetKey()
 	{
-		return '';
+		return 'T6m9iK73b0kn9g5v426MKfHQH7X8rKwb';
 	}
 	public function GetAppSecret()
 	{
